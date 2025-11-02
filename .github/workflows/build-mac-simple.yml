@@ -1,0 +1,75 @@
+name: Build Mac Packages (Simple)
+
+# 简化版本，用于测试和调试
+on:
+  workflow_dispatch:
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+    
+    - name: 设置Python环境
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: 显示Python信息
+      run: |
+        python --version
+        pip --version
+        
+    - name: 检查项目文件
+      run: |
+        echo "=== 当前目录 ==="
+        pwd
+        echo ""
+        echo "=== 文件列表 ==="
+        ls -la
+        echo ""
+        echo "=== requirements.txt 内容 ==="
+        cat requirements.txt
+        
+    - name: 升级pip
+      run: |
+        python -m pip install --upgrade pip
+        
+    - name: 安装依赖（带详细输出）
+      run: |
+        echo "开始安装依赖..."
+        pip install python-pptx==0.6.23 --verbose
+        pip install customtkinter==5.2.1 --verbose
+        pip install Pillow==10.1.0 --verbose
+        pip install pyinstaller --verbose
+        echo "依赖安装完成"
+        
+    - name: 验证依赖
+      run: |
+        pip list
+        
+    - name: 测试导入
+      run: |
+        python -c "import pptx; print('✓ python-pptx')"
+        python -c "import customtkinter; print('✓ customtkinter')"
+        python -c "import PIL; print('✓ Pillow')"
+        python -c "import PyInstaller; print('✓ PyInstaller')"
+        
+    - name: 检查脚本文件
+      run: |
+        ls -la *.sh
+        echo ""
+        echo "=== build_mac.sh 内容 ==="
+        head -20 build_mac.sh
+        
+    - name: 上传日志（如果失败）
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: debug-logs
+        path: |
+          .
+        retention-days: 5
+
