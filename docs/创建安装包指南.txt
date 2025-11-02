@@ -1,0 +1,237 @@
+=====================================
+创建专业安装包 - 完整指南
+=====================================
+
+版本：v1.2.0
+日期：2025-10-22
+
+
+【方案对比】
+===========
+
+方案A：直接发EXE ❌
+  优点：简单
+  缺点：不专业，可能被误报
+
+方案B：压缩文件夹 ⭐
+  优点：较专业
+  缺点：用户需要手动解压
+
+方案C：专业安装包 ⭐⭐⭐ 推荐！
+  优点：最专业，类似正规软件
+  缺点：需要额外工具
+
+
+【制作安装包步骤】
+=================
+
+步骤1：准备程序文件
+------------------
+先打包程序（必须使用文件夹模式）：
+
+1. 双击运行：build_exe_folder.bat
+2. 等待打包完成
+3. 确认生成了：dist\PPT背景替换工具\ 文件夹
+
+
+步骤2：下载并安装 Inno Setup
+---------------------------
+Inno Setup 是免费的专业安装包制作工具
+
+下载地址：
+  https://jrsoftware.org/isdl.php
+  
+选择版本：
+  Inno Setup 6.x（含中文支持）
+  
+安装：
+  双击安装，一路"下一步"即可
+
+
+步骤3：编译安装包
+-----------------
+方法A（最简单）：
+  1. 右键点击 installer_script.iss
+  2. 选择"Compile"（使用 Inno Setup 编译）
+  3. 等待编译完成
+
+方法B（手动）：
+  1. 打开 Inno Setup
+  2. 文件 -> 打开 -> 选择 installer_script.iss
+  3. 构建 -> 编译
+  4. 等待完成
+
+完成后，安装包位于：
+  Installer_Output\PPT背景替换工具_v1.2.0_安装程序.exe
+
+
+步骤4：测试安装包
+-----------------
+1. 双击运行生成的安装包
+2. 按照安装向导安装
+3. 测试程序是否正常运行
+4. 测试卸载功能是否正常
+
+
+步骤5：分发安装包
+-----------------
+将生成的安装包发给用户即可！
+
+文件名：PPT背景替换工具_v1.2.0_安装程序.exe
+大小：约40-100 MB
+
+
+【用户使用流程】
+===============
+
+1. 双击安装包
+2. 选择安装语言（简体中文）
+3. 阅读许可协议 → 下一步
+4. 选择安装位置 → 下一步
+5. 选择开始菜单文件夹 → 下一步
+6. 选择附加任务（创建桌面图标）→ 下一步
+7. 确认安装 → 安装
+8. 完成！可选择立即运行
+
+
+【安装包功能】
+=============
+
+✓ 专业的安装向导界面
+✓ 自动创建开始菜单快捷方式
+✓ 可选创建桌面图标
+✓ 可选创建快速启动图标
+✓ 完整的卸载功能
+✓ 中文界面
+✓ 显示许可协议
+✓ 显示安装前说明
+
+
+【自定义配置】
+=============
+
+如需修改安装包，编辑 installer_script.iss：
+
+修改应用名称：
+  #define MyAppName "PPT背景替换工具"
+
+修改版本号：
+  #define MyAppVersion "1.2.0"
+
+修改发布者：
+  #define MyAppPublisher "您的名字/组织"
+
+修改网址：
+  #define MyAppURL "https://your-website.com"
+
+修改默认安装位置：
+  DefaultDirName={autopf}\{#MyAppName}
+  
+添加自定义图标：
+  SetupIconFile=app.ico
+  （需要准备一个.ico文件）
+
+
+【高级选项】
+===========
+
+添加VC++ Redistributable：
+-------------------------
+如果用户系统缺少运行库，可以集成到安装包：
+
+1. 下载 vc_redist.x64.exe
+2. 放到项目目录
+3. 在installer_script.iss中添加：
+
+[Files]
+Source: "vc_redist.x64.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
+
+[Run]
+Filename: "{tmp}\vc_redist.x64.exe"; Parameters: "/quiet /norestart"; \
+  StatusMsg: "安装运行库..."; Flags: waituntilterminated
+
+
+创建卸载提示：
+-------------
+在 [UninstallRun] 部分添加：
+
+[UninstallRun]
+Filename: "{cmd}"; Parameters: "/C ""echo 感谢使用！"""; Flags: runhidden
+
+
+添加示例文件：
+-------------
+在 [Files] 部分添加：
+
+Source: "examples\*"; DestDir: "{app}\examples"; \
+  Flags: ignoreversion recursesubdirs
+
+
+【故障排查】
+===========
+
+问题1：编译失败
+---------------
+检查：
+  □ dist\PPT背景替换工具\ 文件夹是否存在
+  □ 文件夹中是否有 PPT背景替换工具.exe
+  □ LICENSE.txt 和 安装前说明.txt 是否存在
+
+问题2：安装后无法运行
+--------------------
+可能原因：
+  - 打包时用的是 --onefile（单文件）模式
+  - 必须用 build_exe_folder.bat 打包
+
+解决方法：
+  重新用 build_exe_folder.bat 打包
+
+问题3：中文乱码
+--------------
+确保：
+  - 所有.txt文件使用UTF-8编码保存
+  - Inno Setup选择了中文语言支持
+
+
+【对比其他工具】
+===============
+
+Inno Setup vs NSIS：
+  Inno Setup：更简单，适合初学者
+  NSIS：更强大，但配置复杂
+
+Inno Setup vs InstallShield：
+  Inno Setup：免费，功能够用
+  InstallShield：商业软件，功能更全
+
+
+【总结】
+=======
+
+使用 Inno Setup 制作安装包是最专业的分发方式：
+
+✓ 用户体验好（标准安装向导）
+✓ 自动处理快捷方式
+✓ 自带卸载功能
+✓ 完全免费
+✓ 中文支持
+✓ 类似正规软件
+
+强烈推荐用这种方式分发！
+
+
+【快速开始】
+===========
+
+最简步骤：
+1. 运行 build_exe_folder.bat
+2. 下载并安装 Inno Setup
+3. 右键 installer_script.iss → Compile
+4. 在 Installer_Output 文件夹找到安装包
+5. 发给用户！
+
+就这么简单！🎉
+
+
+
+

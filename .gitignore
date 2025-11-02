@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec.backup
+
+# 构建产物（保留配置文件）
+build/
+# dist/  # 如果需要保留构建结果，注释这一行
+
+# 虚拟环境
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# 临时文件
+*.log
+*.tmp
+*.bak
+pkg_temp/
+dmg_temp/
+
+# 测试文件
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 文档临时文件
+~$*.doc*
+~$*.xls*
+~$*.ppt*
+

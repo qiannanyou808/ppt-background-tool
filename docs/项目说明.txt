@@ -1,0 +1,95 @@
+=====================================
+PPT背景替换工具 v1.2.0 - 项目说明
+=====================================
+
+【快速导航】
+===========
+
+👉 想使用程序？      → 使用指南.txt
+👉 想学习代码？      → 新手学习指南.txt
+👉 想了解技术细节？  → docs\ 文件夹
+
+
+【项目文件说明】
+===============
+
+核心程序（3个）：
+  ppt_background_replacer.py        主程序源码
+  ppt_background_replacer_学习版.py  带详细注释的学习版
+  requirements.txt                  Python依赖列表
+
+常用脚本（5个）：
+  run.bat                          启动程序
+  install_dependencies.bat         安装依赖
+  build_exe_folder.bat            打包EXE
+  制作安装包.bat                   制作安装包
+  clean.bat                       清理临时文件
+
+配置文件（4个）：
+  PPT背景替换工具.spec            打包配置
+  installer_script.iss             安装包配置
+  LICENSE.txt                      软件许可
+  安装前说明.txt                   安装包说明
+
+文档（3个 + 1个文件夹）：
+  README.md                        项目详细说明
+  使用指南.txt                     用户使用指南 ⭐
+  新手学习指南.txt                 学习者完整指南 ⭐
+  docs\                           进阶文档文件夹
+
+
+【快速开始】
+===========
+
+第一次使用：
+  1. 双击 install_dependencies.bat
+  2. 双击 run.bat
+  3. 开始使用！
+
+打包分发：
+  1. 双击 build_exe_folder.bat
+  2. 压缩 dist\PPT背景替换工具\ 文件夹
+  3. 发给用户！
+
+制作安装包：
+  1. 安装 Inno Setup
+  2. 右键 installer_script.iss → Compile
+  3. 在 Installer_Output\ 找到安装包
+
+
+【目录结构】
+===========
+
+ppt\                              项目根目录
+├── 📄 核心文件（3个）
+├── 📜 脚本（5个）
+├── ⚙️ 配置（4个）
+├── 📖 文档（4个）
+├── 📁 docs\                     进阶文档
+├── 📁 build\                    临时文件（可删）
+├── 📁 dist\                     打包输出
+└── 📁 Installer_Output\         安装包输出
+
+
+【常见操作】
+===========
+
+运行程序：       run.bat
+安装依赖：       install_dependencies.bat
+打包EXE：        build_exe_folder.bat
+清理文件：       clean.bat
+查看使用方法：   使用指南.txt
+学习代码：       新手学习指南.txt
+
+
+【技术支持】
+===========
+
+问题排查：
+  1. 查看 使用指南.txt 的常见问题
+  2. 查看 docs\ 文件夹的详细文档
+  3. 查看 README.md 的完整说明
+
+
+就这么简单！🎉
+
